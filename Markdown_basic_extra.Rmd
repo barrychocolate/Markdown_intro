@@ -1,0 +1,55 @@
+---
+title: "Markdown basic extra"
+author: "Barry Bullas"
+date: "21/08/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+no_rows<-nrow(mtcars)
+library(plotly)
+library(leaflet)
+```
+
+# The Dataset
+
+This document will provide an overview of the **mtcars** dataset, a built in dataset within R Studio that can be used for practice.
+
+This [Markdown cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) can be very *useful for guidance* when creating Markdown documents. 
+
+## Summary Statistics
+
+There are `r no_rows` rows in the dataset.
+
+Below shows a summary of the overall dataset:
+
+```{r cars, echo=FALSE}
+summary(mtcars)
+```
+
+The first six rows of the dataset looks like this:
+
+```{r preview, echo=FALSE}
+head(mtcars)
+```
+
+## Including interactive plots
+Where ggplot will insert a plot as a static image, plotly allows you to provide an interactive plot.  You can find out more about about plotly on the [plotly website](https://plot.ly/r/line-and-scatter/#new-to-plotly)
+
+```{r plot, echo=FALSE, warnings=FALSE, message=FALSE}
+p <- plot_ly(data = mtcars, x = ~wt, y = ~mpg) %>%
+  layout(title = 'mtcars plot')
+p
+```
+
+## The US home of motorcars
+
+```{r}
+m <- leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=-83.0458, lat=42.3314, popup="The US home of the motorcar")
+m  # Print the map
+```
+
