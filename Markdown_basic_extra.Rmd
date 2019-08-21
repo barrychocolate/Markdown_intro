@@ -1,55 +1,70 @@
 ---
 title: "Markdown basic extra"
-author: "Barry Bullas"
+author: "SH & BB"
 date: "21/08/2019"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
-no_rows<-nrow(mtcars)
+no_cars<-nrow(cars)
 library(plotly)
 library(leaflet)
+library(DT)
 ```
 
-# The Dataset
+# **The Cars Dataset**
 
-This document will provide an overview of the **mtcars** dataset, a built in dataset within R Studio that can be used for practice.
+This document will provide an overview of the cars dataset, a build in dataset within the R that can be used for practice.
 
-This [Markdown cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) can be very *useful for guidance* when creating Markdown documents. 
+This cheat sheet can be very useful for guidance <https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf>
 
-## Summary Statistics
+## *Summary Statistics*
 
-There are `r no_rows` rows in the dataset.
+There are `r no_cars` cars in the dataset.
 
 Below shows a summary of the overall dataset:
 
 ```{r cars, echo=FALSE}
-summary(mtcars)
+summary(cars)
 ```
 
 The first six rows of the dataset looks like this:
 
 ```{r preview, echo=FALSE}
-head(mtcars)
+head(cars)
 ```
+
+## Including Datatables
+Datatables can be a handy way to let the reader explore the dataset.  In this instance i have used the mtcars dataset as it has more data to view.  The [DataTables github page](https://rstudio.github.io/DT/) is a good starting point if you want to learn more.
+```{r echo=FALSE}
+datatable(mtcars,
+          caption = 'mtcars dataset',
+          class = 'cell-border stripe',
+          rownames = FALSE,
+          options = list(searching = FALSE)
+)
+```
+
 
 ## Including interactive plots
 Where ggplot will insert a plot as a static image, plotly allows you to provide an interactive plot.  You can find out more about about plotly on the [plotly website](https://plot.ly/r/line-and-scatter/#new-to-plotly)
 
 ```{r plot, echo=FALSE, warnings=FALSE, message=FALSE}
-p <- plot_ly(data = mtcars, x = ~wt, y = ~mpg) %>%
-  layout(title = 'mtcars plot')
+p <- plot_ly(data = cars, x = ~speed, y = ~dist) %>%
+  layout(title = 'cars plot')
 p
 ```
 
 ## The US home of motorcars
-
-```{r}
+Detroit is best known as the center of the U.S. automobile industry, and the "Big Three" auto manufacturers General Motors, Ford, and Chrysler are all headquartered in Metro Detroit.
+```{r echo=FALSE}
 m <- leaflet() %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
   addMarkers(lng=-83.0458, lat=42.3314, popup="The US home of the motorcar")
 m  # Print the map
 ```
 
+## Images
+Adding images to your documents can be useful.  
+![](images\car.png)
